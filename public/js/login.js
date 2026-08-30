@@ -1,12 +1,9 @@
-// public/js/login.js
-
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
   const errorBox = document.getElementById('errorMsg');
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('pwd');
 
-  // --- Show/hide password toggle ---
   if (togglePassword) {
     togglePassword.addEventListener('click', () => {
       const isPassword = passwordInput.type === 'password';
@@ -23,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     errorBox.style.display = 'none';
   }
 
-  // --- Handle login form submit ---
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // stop normal page reload
     hideError();
