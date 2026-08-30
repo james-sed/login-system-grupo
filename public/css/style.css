@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-group {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.6rem 8.5rem;
+  background-color: #0839db;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  max-width: 100%;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #cec6c6;
+  color: black;
+  transition: 0.5s;
+}
+
+.signin-container {
+  line-height: 0.3;
+}
+
+.user-details-container {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.username-box,
+.password-box {
+  border-radius: 7px;
+  border-style: solid;
+  padding: 0.6rem 1rem; 
+  max-width: 100%;
+  border-color: #a199996e;
+  width: 280px;
+}
+
+.no-account-desc a {
+  text-decoration: none;
+  color: #555;
+}
+
+.no-account-desc {
+  color: blue;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+}
+
+.no-account-desc a:hover,
+.forgot-password:hover {
+  color: rgb(0, 195, 255);
+  transition: 0.3s;
+}
+
+.details-head {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: rgb(78, 76, 76);
+}
+
+.signin-header,
+.signin-desc,
+.or,
+.no-account-desc {
+  text-align: center;
+}
+
+.signin-desc {
+  color: #8a8787;
+  font-size: 13px;
+}
+
+.remember-me-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+}
+
+.remember-me-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 13px;
+}
+
+.forgot-password {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  font-size: 13px;
+}
+
+.or{
+    font-size: 13px;
+}
