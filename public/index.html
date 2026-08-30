@@ -12,7 +12,8 @@
         <h1 class="signin-header">Welcome back!</h1>
         <p class="signin-desc">Sign in to your account.</p>
       </div>
-      <form action="/submit-data" method="POST">
+
+      <form id="loginForm">
         <!-- Text Input -->
         <div class="user-details-container">
           <div class="details-head">
@@ -33,14 +34,16 @@
           <div class="details-head">
             <label for="pwd">Password</label>
           </div>
-          <input
-            class="password-box"
-            type="password"
-            id="pwd"
-            name="password"
-            placeholder="Enter your password"
-            required
-          />
+          <div class="password-wrapper">
+            <input
+              class="password-box"
+              type="password"
+              id="pwd"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
         </div>
 
         <!-- Checkbox (remember me)-->
@@ -56,14 +59,21 @@
           </div>
           <a href="#" class="forgot-password">Forgot password?</a>
         </div>
+
+        <!-- Error message (hidden until login fails) -->
+        <p class="error-msg" id="errorMsg"></p>
+
+        <div class="button-group">
+          <button type="submit" class="btn">Sign in</button>
+        </div>
       </form>
-      <div class="button-group">
-        <a href="login.html" class="btn">Sign in</a>
-      </div>
+
       <p class="or">or</p>
       <p class="no-account-desc">
         Don't have an account? <a href="register.html">Register here.</a>
       </p>
     </main>
+
+    <script src="js/login.js"></script>
   </body>
 </html>
