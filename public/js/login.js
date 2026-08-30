@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     togglePassword.addEventListener('click', () => {
       const isPassword = passwordInput.type === 'password';
       passwordInput.type = isPassword ? 'text' : 'password';
+      togglePassword.textContent = isPassword ? '🙈' : '👁️';
     });
   }
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // stop normal page reload
+    e.preventDefault();
     hideError();
 
     const username = document.getElementById('username').value.trim();
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch('/api/register', {
+      const res = await fetch('/user/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fullname, username, password })
+        body: JSON.stringify({ name: fullname, username, email: '', password })
       });
 
       const data = await res.json();
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.reset();
         setTimeout(() => {
           window.location.href = 'index.html';
-        }, 1800); // brief pause so the user actually sees the message
+        }, 1800);
       } else {
         showError(data.message || 'Registration failed. Please try again.');
       }
