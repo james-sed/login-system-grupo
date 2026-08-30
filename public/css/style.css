@@ -58,6 +58,7 @@ body {
   max-width: 100%;
   border-color: #a199996e;
   width: 280px;
+  border-width: 1px;
 }
 
 .no-account-desc a {
@@ -121,4 +122,12 @@ body {
 
 .or{
     font-size: 13px;
+}
+
+input[type="checkbox"] {
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  accent-color: #2f00ff; 
+  border-color: #555;
 }
