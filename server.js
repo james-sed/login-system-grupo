@@ -14,6 +14,7 @@ app.get("/users", (req, res) => {
     users: users,
   });
 });
+
 app.post("/user/registration", async (req, res) => {
   console.log("req body: ", req.body);
   try {

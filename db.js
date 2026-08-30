@@ -20,13 +20,16 @@ async function Register(user) {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(user.password, salt);
+
     const query = insertdata.run(
       user.name,
       user.username,
       user.email,
       hashedPassword,
     );
+
     return query;
+    
   } catch (err) {
     console.log("error: " + err);
     return;
