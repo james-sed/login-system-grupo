@@ -15,19 +15,26 @@ app.get("/users", (req, res) => {
 });
 app.post("/user/registration", async (req, res) => {
   console.log("req body: ", req.body);
-  const users = await Register(req.body);
-  res.json({
-    message: "Succesfully registered",
-    users: users,
-  });
+  try {
+    const result = await Register(req.body);
+    if (!result) {
+      return res.json({ success: false, message: "Registration failed. Username may already be taken." });
+    }
+    res.json({ success: true, message: "Successfully registered" });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, message: "Registration failed" });
+  }
 });
 
 app.post("/user/login", async (req, res) => {
-  const users = await Login(req.body.username, req.body.password);
-  res.json({
-    message: "Successfuly Logged in",
-    users: users,
-  });
+   try {
+    const user = await Login(req.body.username, req.body.password);
+    res.json({ success: true, message: "Successfully logged in", user });
+  } catch (err) {
+    console.error(err.message);
+    res.json({ success: false, message: "Invalid username or password" });
+  }
 });
 
 app.listen(port, () => {
