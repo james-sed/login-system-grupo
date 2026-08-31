@@ -3,7 +3,8 @@ import { Register, Login, getUsers } from "./db.js";
 
 const app = express();
 app.use(express.json());
-const port = 5000;
+app.use(express.static("public"));
+const port = 3000;
 
 app.get("/users", (req, res) => {
   const users = getUsers();
