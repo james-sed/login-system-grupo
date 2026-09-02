@@ -4,7 +4,8 @@ import { Register, Login, getUsers } from "./db.js";
 const app = express();
 app.use(express.json());
 app.use(express.static("public"));
-const port = 3000;
+const PORT = process.env.PORT;
+console.log(PORT)
 
 app.get("/users", (req, res) => {
   const users = getUsers();
@@ -20,7 +21,10 @@ app.post("/user/registration", async (req, res) => {
   try {
     const result = await Register(req.body);
     if (!result) {
-      return res.json({ success: false, message: "Registration failed. Username may already be taken." });
+      return res.json({
+        success: false,
+        message: "Registration failed. Username may already be taken.",
+      });
     }
     res.json({ success: true, message: "Successfully registered" });
   } catch (err) {
@@ -30,7 +34,7 @@ app.post("/user/registration", async (req, res) => {
 });
 
 app.post("/user/login", async (req, res) => {
-   try {
+  try {
     const user = await Login(req.body.username, req.body.password);
     res.json({ success: true, message: "Successfully logged in", user });
   } catch (err) {
@@ -40,5 +44,5 @@ app.post("/user/login", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port${port}`);
+  console.log(`Example app listening on port${PORT}`);
 });

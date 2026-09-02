@@ -6,7 +6,7 @@ const columns = db.prepare("PRAGMA table_info(users)").all();
 
 console.log(columns.map((column) => column.name));
 */
-db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`)
+db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
 if (db) {
   console.log("sqlite Connected");
 }
