@@ -7,9 +7,24 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <h1 class="header-dashboard">Welcome, <span id="userName"></span>!</h1>
-    <p>Username: <span id="userUsername"></span></p>
-    <button id="logoutBtn">Log out</button>
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <div class="dashboard-avatar" id="avatarInitial"></div>
+        <div class="dashboard-welcome">
+          <h1 class="dashboard-name">Welcome, <span id="userName"></span></h1>
+          <p class="dashboard-username">@<span id="userUsername"></span></p>
+        </div>
+      </div>
+
+      <div class="dashboard-divider"></div>
+
+      <div class="dashboard-info">
+        <p class="dashboard-label">Account</p>
+        <p class="dashboard-value" id="accountDisplay">-</p>
+      </div>
+
+      <button id="logoutBtn" class="dashboard-logout">Log out</button>
+    </div>
 
     <script>
       async function loadUser() {
@@ -23,6 +38,10 @@
           document.getElementById("userName").textContent = data.user.name;
           document.getElementById("userUsername").textContent =
             data.user.username;
+          document.getElementById("accountDisplay").textContent =
+            data.user.username;
+          document.getElementById("avatarInitial").textContent =
+            data.user.name.charAt(0).toUpperCase();
         } catch (err) {
           console.error(err);
           window.location.href = "/login.html";

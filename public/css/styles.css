@@ -187,6 +187,124 @@ input[type="checkbox"] {
   display: none;
 }
 
-.header-dashboard{
+.dashboard-details{
   margin: 0 auto;
+}
+
+.dashboard-card {
+  max-width: 420px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08),
+              0 1px 4px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.dashboard-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.dashboard-welcome {
+  line-height: 1.3;
+}
+
+.dashboard-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.dashboard-username {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0.2rem 0 0 0;
+  letter-spacing: 0.02em;
+}
+
+.dashboard-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 1.5rem 0;
+}
+
+.dashboard-info {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.3rem 0;
+}
+
+.dashboard-value {
+  font-size: 0.95rem;
+  color: #374151;
+  margin: 0;
+}
+
+.dashboard-logout {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: #ef4444;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.dashboard-logout:hover {
+  background: #dc2626;
+}
+
+.dashboard-logout:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+  .dashboard-card {
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .dashboard-avatar {
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+  }
+
+  .dashboard-name {
+    font-size: 1.15rem;
+  }
 }
