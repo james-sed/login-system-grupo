@@ -186,3 +186,7 @@ input[type="checkbox"] {
 .errorMsg {
   display: none;
 }
+
+.header-dashboard{
+  margin: 0 auto;
+}

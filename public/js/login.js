@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       if (data.success) {
+        localStorage.setItem('user', JSON.stringify(data.user));
         window.location.href = 'dashboard.html';
       } else {
         showError(data.message || 'Invalid username or password.');

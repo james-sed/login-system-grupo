@@ -1,4 +1,5 @@
 import express from "express";
+import 'dotenv/config';
 import { Register, Login, getUsers } from "./db.js";
 
 const app = express();
@@ -43,6 +44,6 @@ app.post("/user/login", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log(`Example app listening on port${PORT}`);
 });
