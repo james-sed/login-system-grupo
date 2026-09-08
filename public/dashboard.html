@@ -4,21 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <h1 class="header-dashboard">Welcome, <span id="userName"></span>!</h1>
+    <p>Username: <span id="userUsername"></span></p>
+    <button id="logoutBtn">Log out</button>
 
     <script>
-      const userData = localStorage.getItem("user");
-      if (!userData) {
-        // No user logged in, kick back to login page
-        window.location.href = "/login.html";
-      } else {
-        const user = JSON.parse(userData);
-        document.getElementById("userName").textContent = user.name;
-        document.getElementById("userUsername").textContent = user.username;
+      async function loadUser() {
+        try {
+          const res = await fetch("/user/me", { credentials: "include" });
+          if (!res.ok) {
+            window.location.href = "/login.html";
+            return;
+          }
+          const data = await res.json();
+          document.getElementById("userName").textContent = data.user.name;
+          document.getElementById("userUsername").textContent =
+            data.user.username;
+        } catch (err) {
+          console.error(err);
+          window.location.href = "/login.html";
+        }
       }
+
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async () => {
+          await fetch("/user/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+          window.location.href = "/index.html";
+        });
+
+      loadUser();
     </script>
   </body>
 </html>

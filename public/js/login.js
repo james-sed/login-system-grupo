@@ -37,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ username, password })
       });
 
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem('user', JSON.stringify(data.user));
         window.location.href = 'dashboard.html';
       } else {
         showError(data.message || 'Invalid username or password.');
