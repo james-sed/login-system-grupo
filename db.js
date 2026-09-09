@@ -6,7 +6,11 @@ const columns = db.prepare("PRAGMA table_info(users)").all();
 
 console.log(columns.map((column) => column.name));
 */
-db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
+//db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
+const users = db.prepare(`SELECT * FROM users`).all();
+console.log(users);
+
+
 if (db) {
   console.log("sqlite Connected");
 }
@@ -56,4 +60,31 @@ async function Login(username, password) {
   return user;
 }
 
-export { db, Register, Login, getUsers };
+async function sendEmail(email) {
+  const query = db.prepare(`SELECT email FROM users WHERE email = ?`);
+  const user_email = query.get(email);
+  try {
+    if (!user_email || user_email === null) {
+      throw new Error("User email not found.");
+    }
+    return user_email;
+  } catch (err) {
+    console.log("Error: " + err);
+    return;
+  }
+}
+async function resetPassword(password, confrim_password, email) {
+  const update_password = db.prepare(
+    `UPDATE users SET password = ? WHERE email = ?`,
+  );
+
+  if (password !== confrim_password) {
+    throw new Error("Password does not match confirm password.");
+    return;
+  }
+
+  const query = update_password.run(password, email);
+  return query;
+}
+
+export { db, Register, Login, getUsers, sendEmail, resetPassword };
