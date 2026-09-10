@@ -8,7 +8,6 @@ console.log(columns.map((column) => column.name));
 */
 //db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
 const users = db.prepare(`SELECT * FROM users`).all();
-console.log(users);
 
 if (db) {
   console.log("sqlite Connected");

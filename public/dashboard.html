@@ -29,7 +29,7 @@
     <script>
       async function loadUser() {
         try {
-          const res = await fetch("/user/me", { credentials: "include" });
+          const res = await fetch("api/user/me", { credentials: "include" });
           if (!res.ok) {
             window.location.href = "/login.html";
             return;

@@ -29,10 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fullname = document.getElementById('fullname').value.trim();
     const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
 
-    if (!fullname || !username || !password || !confirmPassword) {
+    if (!fullname || !username || !email || !password || !confirmPassword) {
       showError('Please fill in all fields.');
       return;
     }
@@ -48,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch('/user/registration', {
+      const res = await fetch('api/user/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fullname, username, email: '', password })
+        body: JSON.stringify({ name: fullname, username, email, password })
       });
 
       const data = await res.json();
