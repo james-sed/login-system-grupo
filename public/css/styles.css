@@ -13,6 +13,8 @@ body {
   padding: 2rem 5rem;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 420px;
+  max-width: 90vh;
 }
 
 .button-group {
@@ -52,6 +54,8 @@ body {
 .user-details-container {
   margin-top: 10px;
   padding-top: 10px;
+  align-items: center;
+  margin-left: 50px;
 }
 
 .username-box,
@@ -63,7 +67,10 @@ body {
   border-color: #a199996e;
   width: 280px;
   border-width: 1px;
+  display: block;
+  margin-right: auto;
 }
+
 
 .no-account-desc a {
   text-decoration: none;
@@ -89,6 +96,10 @@ body {
   color: rgb(78, 76, 76);
 }
 
+#emailForm .details-head {
+  text-align: left;
+}
+
 .header{
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -106,28 +117,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.remember-me-container,
-.terms-container{
+.remember-me-container{
   margin-top: 15px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   max-width: 100%;
-}
-
-.remember-me-left,
-.terms-left {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 13px;
-  color: #2f00ff;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.terms-left {
-  font-size: 11px;
 }
 
 .forgot-password {
@@ -135,6 +128,7 @@ body {
   color: #333;
   font-size: 0.9rem;
   font-size: 13px;
+  margin: 0 auto;
 }
 
 .or {
@@ -305,3 +299,4 @@ input[type="checkbox"] {
     font-size: 1.15rem;
   }
 }
+

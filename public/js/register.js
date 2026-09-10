@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const successBox = document.getElementById('successMsg');
   const passwordInput = document.getElementById('pwd');
   const confirmPasswordInput = document.getElementById('confirmpwd');
-  const termsCheckbox = document.getElementById('terms');
 
   function showError(message) {
     successBox.style.display = 'none';
@@ -40,11 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (password !== confirmPassword) {
       showError('Passwords do not match.');
-      return;
-    }
-
-    if (!termsCheckbox.checked) {
-      showError('You must agree to the Terms of Service and Privacy Policy.');
       return;
     }
 
