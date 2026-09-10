@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const errorBox2 = document.getElementById('errorMsg2');
   const successBox2 = document.getElementById('successMsg2');
 
-  let confirmedEmail = ''; // carried over from step 1 into step 2
+  let confirmedEmail = ''; 
 
   function showError(box, message) {
     box.querySelector('.alert-text').textContent = message;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     box.style.display = 'none';
   }
 
-  // STEP 1: check the email exists, then reveal step 2
+  // check the email exists, then reveal 
   emailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     hideError(errorBox1);
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // STEP 2: set the new password
+  // set the new password
   resetForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     hideError(errorBox2);
