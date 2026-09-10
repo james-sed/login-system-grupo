@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showSuccess('Account created successfully! Please sign in.');
         registerForm.reset();
         setTimeout(() => {
-          window.location.href = 'index.html';
+          window.location.href = 'signin.html';
         }, 1800);
       } else {
         showError(data.message || 'Registration failed. Please try again.');
