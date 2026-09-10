@@ -10,7 +10,6 @@ console.log(columns.map((column) => column.name));
 const users = db.prepare(`SELECT * FROM users`).all();
 console.log(users);
 
-
 if (db) {
   console.log("sqlite Connected");
 }
@@ -27,14 +26,14 @@ async function Register(user) {
     "INSERT INTO users (name, username, email, password) VALUES(?, ?, ?, ?)",
   );
   try {
-    //const salt = await bcrypt.genSalt();
-    //const hashedPassword = await bcrypt.hash(user.password, salt);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(user.password, salt);
 
     const query = insertdata.run(
       user.name,
       user.username,
       user.email,
-      user.password,
+      hashedPassword,
     );
 
     return query;
@@ -46,17 +45,16 @@ async function Register(user) {
 
 async function Login(username, password) {
   const query = db.prepare(`SELECT * FROM users WHERE username = ?`);
-
   const user = query.get(username);
 
   if (!user) {
     throw new Error("User not found");
   }
 
-  if (password !== user.password) {
+  const CheckedPassword = await bcrypt.compare(password, user.password);
+  if (!CheckedPassword) {
     throw new Error("Invalid password");
   }
-
   return user;
 }
 
@@ -80,10 +78,12 @@ async function resetPassword(password, confrim_password, email) {
 
   if (password !== confrim_password) {
     throw new Error("Password does not match confirm password.");
-    return;
   }
 
-  const query = update_password.run(password, email);
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const query = update_password.run(hashedPassword, email);
   return query;
 }
 
