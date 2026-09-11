@@ -7,12 +7,17 @@ const app = express();
 import rateLimit from "express-rate-limit";
 
 let limiter = rateLimit({
-  max: 20,
-  windowMs: 60 * 60 * 1000,
-  message:
-    "We have received too many requests from this IP address, please try again after one hour",
+  max: 3,
+  windowMs: 10 * 60 * 1000,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      message: "We have received too many requests from this IP address, please try again after one hour",
+    });
+  },
 });
-app.use("/api", limiter);
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -123,7 +128,7 @@ app.put("/api/user/reset-password", async (req, res) => {
       });
     }
 
-    //making sure that user must use the same email
+    //making sure that the user must use the same email
     if (req.session.resetEmail !== req.body.email) {
       return res.status(403).json({
         success: false,
@@ -136,12 +141,12 @@ app.put("/api/user/reset-password", async (req, res) => {
       req.body.confirm_password,
       req.body.email,
     );
-    //remove reset permission after success reseting password
+    //remove reset permission after success resetting password
     req.session.resetEmail = null;
 
     res.status(200).json({
       success: true,
-      message: "You Successfuly Reseted your password!",
+      message: "You Successfully Resetted your password!",
       user: update_password,
     });
   } catch (err) {

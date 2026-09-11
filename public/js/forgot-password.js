@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetForm.reset();
         successBox2.style.display = 'flex';
         setTimeout(() => {
-          window.location.href = 'index.html';
+          window.location.href = 'signin.html';
         }, 1800);
       } else {
         showError(errorBox2, data.message || 'Password reset failed. Please try again.');
