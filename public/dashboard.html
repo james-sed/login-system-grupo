@@ -22,8 +22,13 @@
         <p class="dashboard-label">Account</p>
         <p class="dashboard-value" id="accountDisplay">-</p>
       </div>
+      <p id="role" hidden></p>
 
       <button id="logoutBtn" class="dashboard-logout">Log out</button>
+
+      <p class="no-account-desc">
+        <a id="view-users" href="view-users.html">View-Users</a>
+      </p>
     </div>
 
     <script>
@@ -35,13 +40,21 @@
             return;
           }
           const data = await res.json();
+
+          if (data.user.role !== "admin") {
+            const view = document.getElementById("view-users");
+            view.style.display = "none";
+          }
+
           document.getElementById("userName").textContent = data.user.name;
           document.getElementById("userUsername").textContent =
             data.user.username;
           document.getElementById("accountDisplay").textContent =
             data.user.username;
-          document.getElementById("avatarInitial").textContent =
-            data.user.name.charAt(0).toUpperCase();
+          document.getElementById("avatarInitial").textContent = data.user.name
+            .charAt(0)
+            .toUpperCase();
+          document.getElementById("role").textContent = data.user.role;
         } catch (err) {
           console.error(err);
           window.location.href = "/login.html";

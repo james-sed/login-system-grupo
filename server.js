@@ -14,7 +14,8 @@ let limiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "We have received too many requests from this IP address, please try again after one hour",
+      message:
+        "We have received too many requests from this IP address, please try again after one hour",
     });
   },
 });
@@ -44,10 +45,19 @@ function requireAuth(req, res, next) {
   next();
 }
 
-app.get("/api/users", requireAuth, (req, res) => {
+app.get("/api/admin/users", requireAuth, (req, res) => {
   const users = getUsers();
+
+  if (req.session.user?.role !== "admin") {
+    return res.status(403).json({
+      success: false,
+      message: "Access denied. Admin privileges required. ",
+    });
+  }
+
   res.json({
-    message: "Get all the users",
+    success: true,
+    message: "Get all Users ",
     users: users,
   });
 });
@@ -80,6 +90,7 @@ app.post("/api/user/login", limiter, async (req, res) => {
       id: user.id,
       name: user.name,
       username: user.username,
+      role: user.role,
     };
 
     res.json({

@@ -1,68 +1,103 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const registerForm = document.getElementById('registerForm');
-  const errorBox = document.getElementById('errorMsg');
-  const successBox = document.getElementById('successMsg');
-  const passwordInput = document.getElementById('pwd');
-  const confirmPasswordInput = document.getElementById('confirmpwd');
+document.addEventListener("DOMContentLoaded", () => {
+  const registerForm = document.getElementById("registerForm");
+  const errorBox = document.getElementById("errorMsg");
+  const successBox = document.getElementById("successMsg");
+  const passwordInput = document.getElementById("pwd");
+  const confirmPasswordInput = document.getElementById("confirmpwd");
 
   function showError(message) {
-    successBox.style.display = 'none';
-    errorBox.querySelector('.alert-text').textContent = message;
-    errorBox.style.display = 'flex';
+    successBox.style.display = "none";
+    errorBox.querySelector(".alert-text").textContent = message;
+    errorBox.style.display = "flex";
   }
 
   function showSuccess(message) {
-    errorBox.style.display = 'none';
-    successBox.querySelector('.alert-text').textContent = message;
-    successBox.style.display = 'flex';
+    errorBox.style.display = "none";
+    successBox.querySelector(".alert-text").textContent = message;
+    successBox.style.display = "flex";
   }
 
   function hideAlerts() {
-    errorBox.style.display = 'none';
-    successBox.style.display = 'none';
+    errorBox.style.display = "none";
+    successBox.style.display = "none";
   }
 
-  registerForm.addEventListener('submit', async (e) => {
+  function checkLetter(name) {
+    const regex_textLetters = /^[A-Za-z\s]+$/;
+    if (!regex_textLetters.test(name)) {
+      showError("Invalid name Input");
+      return false;
+    }
+    return true;
+  }
+
+  function checkPassword(password) {
+    const password_regex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-+.]).*$/;
+
+    if (!password_regex.test(password)) {
+      showError(
+        "Invalid Password input, it must contains letters, characters, uppercase and lowercase",
+      );
+      return false;
+    }
+    return true;
+  }
+
+  function checkEmail(email) {
+    let email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email_regex.test(email)) {
+      showError("Invalid Email input");
+      return true;
+    }
+    return false;
+  }
+
+  registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     hideAlerts();
 
-    const fullname = document.getElementById('fullname').value.trim();
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const fullname = document.getElementById("fullname").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
 
+    if (!checkLetter(fullname)) return;
+    if (!checkPassword(password)) return;
+    if (!checkEmail(email)) return;
+
     if (!fullname || !username || !email || !password || !confirmPassword) {
-      showError('Please fill in all fields.');
+      showError("Please fill in all fields.");
       return;
     }
 
     if (password !== confirmPassword) {
-      showError('Passwords do not match.');
+      showError("Passwords do not match.");
       return;
     }
 
     try {
-      const res = await fetch('api/user/registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fullname, username, email, password })
+      const res = await fetch("api/user/registration", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: fullname, username, email, password }),
       });
 
       const data = await res.json();
 
       if (data.success) {
-        showSuccess('Account created successfully! Please sign in.');
+        showSuccess("Account created successfully! Please sign in.");
         registerForm.reset();
         setTimeout(() => {
-          window.location.href = 'signin.html';
+          window.location.href = "signin.html";
         }, 1800);
       } else {
-        showError(data.message || 'Registration failed. Please try again.');
+        showError(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
-      console.error('Register request failed:', err);
-      showError('Something went wrong. Please try again.');
+      console.error("Register request failed:", err);
+      showError("Something went wrong. Please try again.");
     }
   });
 });
