@@ -19,9 +19,7 @@ console.log(columns.map((column) => column.name));
 const users = db.prepare(`SELECT * FROM users`).all();
 console.log(users);
 
-if (db) {
-  console.log("sqlite Connected");
-}
+console.log("sqlite Connected");
 
 function getUsers() {
   const query = `SELECT * FROM users`;

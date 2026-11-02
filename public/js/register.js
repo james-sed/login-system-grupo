@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email_regex.test(email)) {
       showError("Invalid Email input");
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   registerForm.addEventListener("submit", async (e) => {
@@ -63,14 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
 
-    if (!checkLetter(fullname)) return;
-    if (!checkPassword(password)) return;
-    if (!checkEmail(email)) return;
-
     if (!fullname || !username || !email || !password || !confirmPassword) {
       showError("Please fill in all fields.");
       return;
     }
+
+    if (!checkLetter(fullname)) return;
+    if (!checkPassword(password)) return;
+    if (!checkEmail(email)) return;
 
     if (password !== confirmPassword) {
       showError("Passwords do not match.");

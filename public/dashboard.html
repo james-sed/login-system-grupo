@@ -4,39 +4,88 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
   </head>
   <body>
-    <div class="dashboard-card">
-      <div class="dashboard-header">
-        <div class="dashboard-avatar" id="avatarInitial"></div>
-        <div class="dashboard-welcome">
-          <h1 class="dashboard-name">Welcome, <span id="userName"></span></h1>
-          <p class="dashboard-username">@<span id="userUsername"></span></p>
-        </div>
+    <header class="topbar">
+      <div class="topbar-brand">
+        <svg
+          class="brand-mark"
+          width="30"
+          height="30"
+          viewBox="0 0 32 32"
+          fill="none"
+          aria-hidden="true"
+        >
+          <rect width="32" height="32" rx="9" fill="url(#brandGrad)" />
+          <path
+            d="M16 9a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm-7 14.5c0-3.1 3.1-4.7 7-4.7s7 1.6 7 4.7"
+            stroke="#ffffff"
+            stroke-width="2.2"
+            stroke-linecap="round"
+          />
+          <defs>
+            <linearGradient
+              id="brandGrad"
+              x1="0"
+              y1="0"
+              x2="32"
+              y2="32"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#a78bfa" />
+              <stop offset="1" stop-color="#6d28d9" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-name">Login System</span>
       </div>
-
-      <div class="dashboard-divider"></div>
-
-      <div class="dashboard-info">
-        <p class="dashboard-label">Account</p>
-        <p class="dashboard-value" id="accountDisplay">-</p>
-      </div>
-      <p id="role" hidden></p>
-
       <button id="logoutBtn" class="dashboard-logout">Log out</button>
+    </header>
 
-      <p class="no-account-desc">
-        <a id="view-users" href="view-users.html">View-Users</a>
-      </p>
-    </div>
+    <main class="dashboard-main">
+      <section class="dashboard-card">
+        <div class="card-banner" aria-hidden="true"></div>
+
+        <div class="card-body">
+          <div class="dashboard-avatar" id="avatarInitial"></div>
+
+          <p class="dashboard-eyebrow">Your profile</p>
+          <h1 class="dashboard-name">Welcome, <span id="userName"></span></h1>
+          <p class="dashboard-username">
+            @<span id="userUsername"></span>
+          </p>
+          <p id="role" class="role-badge"></p>
+
+          <div class="dashboard-actions">
+            <a id="view-users" href="view-users.html" class="view-users"
+              >View Users</a
+            >
+          </div>
+        </div>
+
+        <!-- Session user has no email/member-since, so the duplicate ACCOUNT
+             section stays hidden; #accountDisplay remains in the DOM because
+             the JS writes to it. -->
+        <div class="dashboard-info" hidden>
+          <p class="dashboard-label">Account</p>
+          <p class="dashboard-value" id="accountDisplay">-</p>
+        </div>
+      </section>
+    </main>
 
     <script>
       async function loadUser() {
         try {
-          const res = await fetch("api/user/me", { credentials: "include" });
+          const res = await fetch("/api/user/me", { credentials: "include" });
           if (!res.ok) {
-            window.location.href = "/login.html";
+            window.location.href = "/signin.html";
             return;
           }
           const data = await res.json();
@@ -57,14 +106,14 @@
           document.getElementById("role").textContent = data.user.role;
         } catch (err) {
           console.error(err);
-          window.location.href = "/login.html";
+          window.location.href = "/signin.html";
         }
       }
 
       document
         .getElementById("logoutBtn")
         .addEventListener("click", async () => {
-          await fetch("/user/logout", {
+          await fetch("/api/user/logout", {
             method: "POST",
             credentials: "include",
           });

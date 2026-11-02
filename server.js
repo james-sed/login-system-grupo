@@ -36,7 +36,6 @@ app.use(
 );
 
 const PORT = process.env.PORT;
-console.log(PORT);
 
 function requireAuth(req, res, next) {
   if (!req.session.user) {
@@ -157,7 +156,7 @@ app.put("/api/user/reset-password", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "You Successfully Resetted your password!",
+      message: "You Successfully Reset your password!",
       user: update_password,
     });
   } catch (err) {
