@@ -216,24 +216,15 @@ body {
 }
 
 #usersTable th:nth-child(2) {
-  width: 25%;
+  width: 32%;
 }
 
 #usersTable th:nth-child(3) {
-  width: 25%;
+  width: 32%;
 }
 
 #usersTable th:nth-child(4) {
-  width: 14%;
-}
-
-#usersTable th:nth-child(5) {
   width: 26%;
-}
-
-#usersTable thead th:nth-child(5),
-#usersTable tbody td:nth-child(5) {
-  text-align: center;
 }
 
 #usersTable tbody td {
@@ -285,61 +276,6 @@ body {
   border: 1px solid var(--color-accent-border);
   border-radius: var(--radius-pill);
   z-index: -1;
-}
-
-#usersTable tbody td:nth-child(5) {
-  white-space: nowrap;
-}
-
-#usersTable tbody td:nth-child(5) button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem 0.9rem;
-  font-family: inherit;
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  line-height: 1.3;
-  background: transparent;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease,
-    transform 0.15s ease;
-}
-
-.editBtn {
-  margin-right: var(--space-xs);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-input-border);
-}
-
-.editBtn:hover {
-  color: var(--color-text);
-  background: var(--color-bg);
-}
-
-.editBtn:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.deleteBtn {
-  color: var(--color-danger);
-  border: 1px solid var(--color-danger);
-}
-
-.deleteBtn:hover {
-  background: var(--color-danger-hover);
-}
-
-.deleteBtn:focus-visible {
-  outline: 2px solid var(--color-danger);
-  outline-offset: 2px;
-}
-
-#usersTable tbody td:nth-child(5) button:active {
-  transform: scale(0.97);
 }
 
 @keyframes rise-in {

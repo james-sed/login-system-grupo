@@ -10,10 +10,6 @@ function renderUsers(tableBody, users) {
                 <td>${user.name}</td>
                 <td>${user.username}</td>
                 <td>${user.role}</td>
-                <td>
-                    <button class="editBtn">Edit</button>
-                    <button class="deleteBtn">Delete</button>
-                </td>
             `;
 
     tableBody.appendChild(row);
