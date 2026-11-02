@@ -1,82 +1,110 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const step1 = document.getElementById('reset-email-box');
-  const step2 = document.getElementById('new-pass-box');
+document.addEventListener("DOMContentLoaded", () => {
+  const step1 = document.getElementById("reset-email-box");
+  const step2 = document.getElementById("new-pass-box");
 
-  const emailForm = document.getElementById('emailForm');
-  const errorBox1 = document.getElementById('errorMsg1');
+  const emailForm = document.getElementById("emailForm");
+  const errorBox1 = document.getElementById("errorMsg1");
 
-  const resetForm = document.getElementById('resetForm');
-  const errorBox2 = document.getElementById('errorMsg2');
-  const successBox2 = document.getElementById('successMsg2');
+  const resetForm = document.getElementById("resetForm");
+  const errorBox2 = document.getElementById("errorMsg2");
+  const successBox2 = document.getElementById("successMsg2");
 
-  let confirmedEmail = ''; 
+  let confirmedEmail = "";
 
   function showError(box, message) {
-    box.querySelector('.alert-text').textContent = message;
-    box.style.display = 'flex';
+    box.querySelector(".alert-text").textContent = message;
+    box.style.display = "block";
   }
 
   function hideError(box) {
-    box.style.display = 'none';
+    box.style.display = "none";
   }
 
-  // check the email exists, then reveal 
-  emailForm.addEventListener('submit', async (e) => {
+  function checkEmail(email) {
+    let email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email_regex.test(email)) {
+      showError(errorBox1, "Invalid Email input");
+      return false;
+    }
+    return true;
+  }
+
+  function checkPassword(password) {
+    const password_regex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-+.]).*$/;
+
+    if (!password_regex.test(password)) {
+      showError(
+        errorBox2,
+        "Invalid Password input, it must contains letters, characters, uppercase and lowercase",
+      );
+      return false;
+    }
+    return true;
+  }
+
+  // check the email exists, then reveal
+  emailForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     hideError(errorBox1);
 
-    const email = document.getElementById('email').value.trim();
+    const email = document.getElementById("email").value.trim();
 
     if (!email) {
-      showError(errorBox1, 'Please enter your email.');
+      showError(errorBox1, "Please enter your email.");
       return;
     }
 
+    if (!checkEmail(email)) return;
+
     try {
-      const res = await fetch('/api/user/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/user/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
       const data = await res.json();
+      console.log("Server res: ", data);
 
       if (data.success) {
         confirmedEmail = email;
-        step1.style.display = 'none';
-        step2.style.display = 'block';
+        step1.style.display = "none";
+        step2.style.display = "block";
       } else {
-        showError(errorBox1, data.message || 'Email not found.');
+        showError(errorBox1, data.message || "Email not found.");
       }
     } catch (err) {
-      console.error('Email check failed:', err);
-      showError(errorBox1, 'Something went wrong. Please try again.');
+      console.error("Email check failed:", err);
+      showError(errorBox1, "Something went wrong. Please try again.");
     }
   });
 
   // set the new password
-  resetForm.addEventListener('submit', async (e) => {
+  resetForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     hideError(errorBox2);
-    successBox2.style.display = 'none';
+    successBox2.style.display = "none";
 
-    const password = document.getElementById('newpwd').value;
-    const confirmPassword = document.getElementById('confirmnewpwd').value;
+    const password = document.getElementById("newpwd").value;
+    const confirmPassword = document.getElementById("confirmnewpwd").value;
 
     if (!password || !confirmPassword) {
-      showError(errorBox2, 'Please fill in both password fields.');
+      showError(errorBox2, "Please fill in both password fields.");
       return;
     }
 
+    if (!checkPassword(password)) return;
+
     if (password !== confirmPassword) {
-      showError(errorBox2, 'Passwords do not match.');
+      showError(errorBox2, "Passwords do not match.");
       return;
     }
 
     try {
-      const res = await fetch('/api/user/reset-password', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/user/reset-password", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: confirmedEmail,
           password,
@@ -88,16 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.success) {
         resetForm.reset();
-        successBox2.style.display = 'flex';
+        successBox2.style.display = "flex";
         setTimeout(() => {
-          window.location.href = 'signin.html';
+          window.location.href = "signin.html";
         }, 1800);
       } else {
-        showError(errorBox2, data.message || 'Password reset failed. Please try again.');
+        showError(
+          errorBox2,
+          data.message || "Password reset failed. Please try again.",
+        );
       }
     } catch (err) {
-      console.error('Reset request failed:', err);
-      showError(errorBox2, 'Something went wrong. Please try again.');
+      console.error("Reset request failed:", err);
+      showError(errorBox2, "Something went wrong. Please try again.");
     }
   });
 });

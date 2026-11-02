@@ -87,16 +87,13 @@ async function Login(username, password) {
 async function sendEmail(email) {
   const query = db.prepare(`SELECT email FROM users WHERE email = ?`);
   const user_email = query.get(email);
-  try {
-    if (!user_email || user_email === null) {
-      throw new Error("User email not found.");
-    }
-    return user_email;
-  } catch (err) {
-    console.log("Error: " + err);
-    return;
+
+  if (!user_email) {
+    throw new Error("User email not found.");
   }
+  return user_email;
 }
+
 async function resetPassword(password, confrim_password, email) {
   const update_password = db.prepare(
     `UPDATE users SET password = ? WHERE email = ?`,

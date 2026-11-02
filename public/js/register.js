@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!checkLetter(fullname)) return;
-    if (!checkPassword(password)) return;
     if (!checkEmail(email)) return;
+    if (!checkPassword(password)) return;
 
     if (password !== confirmPassword) {
       showError("Passwords do not match.");

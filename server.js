@@ -7,7 +7,7 @@ const app = express();
 import rateLimit from "express-rate-limit";
 
 let limiter = rateLimit({
-  max: 3,
+  max: 5,
   windowMs: 10 * 60 * 1000,
   standardHeaders: true,
   legacyHeaders: false,
@@ -111,7 +111,7 @@ app.post("/api/user/send-email", async (req, res) => {
     //email must checked before reseting password to ensure email exists.
     req.session.resetEmail = req.body.email;
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message:
         "Successfully checked your email, you can now reset your password",
@@ -119,7 +119,9 @@ app.post("/api/user/send-email", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(404).json({ success: false, message: "Email Does not exist" });
+    return res
+      .status(404)
+      .json({ success: false, message: "Email Does not exist" });
   }
 });
 
