@@ -1,20 +1,26 @@
 import Database from "better-sqlite3";
 import bcrypt from "bcrypt";
 const db = new Database("authentication.db");
-/*
+
 const columns = db.prepare("PRAGMA table_info(users)").all();
 
 console.log(columns.map((column) => column.name));
-*/
-//db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
 
-//db.prepare(
-//`ALTER TABLE users ADD COLUMN role STRING NOT NULL DEFAULT 'user' CHECK (role in ('user', 'admin'))`,
-//).run();
+db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
 
-//db.prepare(
-//"INSERT INTO users (name, username, email, password, role) VALUES('Jay', /'AdminJay', 'AdminJay@gmail.com', 'MinMin@31', 'admin')",
-//).run();
+db.prepare(
+  `ALTER TABLE users ADD COLUMN role STRING NOT NULL DEFAULT 'user' CHECK (role in ('user', 'admin'))`,
+).run();
+
+db.prepare(
+  "INSERT INTO users (name, username, email, password, role) VALUES('Jay', /'AdminJay', 'AdminJay@gmail.com', 'MinMin@31', 'admin')",
+).run();
+
+const salt = await bcrypt.genSalt();
+const hashedPassword = await bcrypt.hash("Jamesj@20", salt);
+db.prepare(
+  "INSERT INTO users (name, username, email, password, role) VALUES(?, ?, ?, ?, ?)",
+).run("James", "Admin2", "Admin2sederia@gmail.com", hashedPassword, "admin");
 
 const users = db.prepare(`SELECT * FROM users`).all();
 console.log(users);

@@ -1,0 +1,383 @@
+:root {
+  /* palette — shared with signin.css / dashboard.css */
+  --color-bg: #f5f3ff;
+  --color-bg-glow: rgba(124, 58, 237, 0.14);
+  --color-surface: #ffffff;
+  --color-text: #17132b;
+  --color-text-muted: #4b5563;
+  --color-placeholder: #6b7280;
+  --color-border: #ebe7ff;
+  --color-input-border: #d6d1ec;
+  --color-accent: #7c3aed;
+  --color-accent-strong: #6d28d9;
+  --color-accent-light: #a78bfa;
+  --color-accent-soft: #ede9fe;
+  --color-accent-border: #ddd6fe;
+  --color-danger: #dc2626;
+  --color-danger-hover: #fef2f2;
+  --color-topbar-bg: rgba(255, 255, 255, 0.85);
+
+  /* spacing */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 3rem;
+  --card-padding: 40px;
+
+  /* radii + shadows */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --shadow-topbar: 0 1px 0 rgba(76, 29, 149, 0.06);
+  --shadow-card: 0 24px 48px -16px rgba(76, 29, 149, 0.2),
+    0 8px 20px rgba(23, 19, 43, 0.05);
+
+  /* type */
+  --font: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-heading: clamp(1.6rem, 5vw, 2rem);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font);
+  color: var(--color-text);
+  background:
+    radial-gradient(700px 360px at 50% -10%, var(--color-bg-glow), transparent 70%),
+    var(--color-bg);
+}
+
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 0.9rem var(--space-xl);
+  background: var(--color-topbar-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-topbar);
+  animation: rise-in 0.45s var(--ease) both;
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent-light),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.brand-mark {
+  flex-shrink: 0;
+  display: block;
+}
+
+.brand-name {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.topbar-back {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.topbar-back:hover {
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+}
+
+.topbar-back:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.users-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.users-card {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  animation: rise-in 0.55s var(--ease) 0.08s both;
+}
+
+.users-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-light),
+    var(--color-accent),
+    var(--color-accent-strong)
+  );
+}
+
+.card-body {
+  padding: var(--card-padding);
+}
+
+.page-title {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--fs-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+#usersTable {
+  width: 100%;
+  min-width: 640px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#usersTable th,
+#usersTable td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  vertical-align: middle;
+}
+
+#usersTable thead th {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: var(--color-accent-soft);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+#usersTable th:nth-child(1) {
+  width: 10%;
+}
+
+#usersTable th:nth-child(2) {
+  width: 25%;
+}
+
+#usersTable th:nth-child(3) {
+  width: 25%;
+}
+
+#usersTable th:nth-child(4) {
+  width: 14%;
+}
+
+#usersTable th:nth-child(5) {
+  width: 26%;
+}
+
+#usersTable thead th:nth-child(5),
+#usersTable tbody td:nth-child(5) {
+  text-align: center;
+}
+
+#usersTable tbody td {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.15s ease;
+}
+
+#usersTable tbody td:nth-child(1) {
+  color: var(--color-text-muted);
+}
+
+#usersTable tbody td:nth-child(-n + 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#usersTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+#usersTable tbody tr:hover td {
+  background: var(--color-bg);
+}
+
+#usersTable tbody td:nth-child(4) {
+  position: relative;
+  z-index: 0;
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  white-space: nowrap;
+}
+
+#usersTable tbody td:nth-child(4)::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--space-xs);
+  right: var(--space-xs);
+  height: calc(var(--fs-xs) + var(--space-md));
+  transform: translateY(-50%);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-pill);
+  z-index: -1;
+}
+
+#usersTable tbody td:nth-child(5) {
+  white-space: nowrap;
+}
+
+#usersTable tbody td:nth-child(5) button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1.3;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.editBtn {
+  margin-right: var(--space-xs);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-input-border);
+}
+
+.editBtn:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.editBtn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.deleteBtn {
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+}
+
+.deleteBtn:hover {
+  background: var(--color-danger-hover);
+}
+
+.deleteBtn:focus-visible {
+  outline: 2px solid var(--color-danger);
+  outline-offset: 2px;
+}
+
+#usersTable tbody td:nth-child(5) button:active {
+  transform: scale(0.97);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .topbar {
+    padding: 0.8rem var(--space-md);
+  }
+
+  .topbar-back {
+    font-size: var(--fs-xs);
+  }
+
+  .users-main {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .card-body {
+    padding: var(--space-lg);
+  }
+}
