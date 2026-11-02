@@ -4,14 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/signin.css" />
   </head>
   <body>
     <main class="container">
-      <div class="signin-container">
+      <div class="signin-header">
         <h1 class="header">Welcome back!</h1>
         <p class="desc">Sign in to your account.</p>
       </div>
+
       <!-- Error message (hidden until login fails) -->
       <div class="alert alert-error" id="errorMsg" style="display: none">
         <span class="alert-icon">
@@ -32,13 +39,10 @@
       </div>
 
       <form id="loginForm" novalidate>
-        <!-- Text Input -->
-        <div class="user-details-container">
-          <div class="details-head">
-            <label for="username">Username</label>
-          </div>
+        <div class="field">
+          <label class="field-label" for="username">Username</label>
           <input
-            class="username-box"
+            class="field-input"
             type="text"
             id="username"
             name="username"
@@ -47,26 +51,21 @@
           />
         </div>
 
-        <!-- Password Input -->
-        <div class="user-details-container">
-          <div class="details-head">
-            <label for="pwd">Password</label>
+        <div class="field">
+          <label class="field-label" for="pwd">Password</label>
+          <input
+            class="field-input"
+            type="password"
+            id="pwd"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+          <div class="field-options">
+            <a href="forgot-password.html" class="forgot-password"
+              >Forgot password?</a
+            >
           </div>
-          <div class="password-wrapper">
-            <input
-              class="password-box"
-              type="password"
-              id="pwd"
-              name="password"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-        </div>
-
-        <!-- Forgot password -->
-        <div class="remember-me-container">
-           <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
         </div>
 
         <div class="button-group">
@@ -74,9 +73,9 @@
         </div>
       </form>
 
-      <p class="or">or</p>
       <p class="no-account-desc">
-        Don't have an account? <a href="register.html">Register here.</a>
+        Don't have an account?
+        <a href="register.html" class="link-register">Register here.</a>
       </p>
     </main>
 
