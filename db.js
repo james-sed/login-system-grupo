@@ -41,10 +41,17 @@ console.log(users);
 console.log("sqlite Connected");
 
 function getUsers() {
-  const query = `SELECT * FROM users`;
+  const query = `SELECT * FROM users WHERE role = 'user'`;
   const users = db.prepare(query).all();
 
   return users;
+}
+
+function getAdmins() {
+  const query = `SELECT * FROM users WHERE role = 'admin'`;
+  const admins = db.prepare(query).all();
+
+  return admins;
 }
 
 async function Register(user) {
@@ -110,4 +117,4 @@ async function resetPassword(password, confrim_password, email) {
   return query;
 }
 
-export { db, Register, Login, getUsers, sendEmail, resetPassword };
+export { db, Register, Login, getUsers, getAdmins, sendEmail, resetPassword };

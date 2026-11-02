@@ -1,7 +1,14 @@
 import express from "express";
 import session from "express-session";
 import "dotenv/config";
-import { Register, Login, getUsers, sendEmail, resetPassword } from "./db.js";
+import {
+  Register,
+  Login,
+  getUsers,
+  getAdmins,
+  sendEmail,
+  resetPassword,
+} from "./db.js";
 
 const app = express();
 import rateLimit from "express-rate-limit";
@@ -59,6 +66,23 @@ app.get("/api/admin/users", requireAuth, (req, res) => {
     success: true,
     message: "Get all Users ",
     users: users,
+  });
+});
+
+app.get("/api/admin/admins", requireAuth, (req, res) => {
+  const admins = getAdmins();
+
+  if (req.session.user?.role !== "admin") {
+    return res.status(403).json({
+      success: false,
+      message: "Access denied. Admin privileges required. ",
+    });
+  }
+
+  res.json({
+    success: true,
+    message: "Get all Admins ",
+    admins: admins,
   });
 });
 

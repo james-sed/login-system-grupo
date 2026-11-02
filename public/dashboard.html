@@ -58,14 +58,15 @@
 
           <p class="dashboard-eyebrow">Your profile</p>
           <h1 class="dashboard-name">Welcome, <span id="userName"></span></h1>
-          <p class="dashboard-username">
-            @<span id="userUsername"></span>
-          </p>
+          <p class="dashboard-username">@<span id="userUsername"></span></p>
           <p id="role" class="role-badge"></p>
 
           <div class="dashboard-actions">
             <a id="view-users" href="view-users.html" class="view-users"
               >View Users</a
+            >
+            <a id="view-admins" href="view-admins.html" class="view-users"
+              >View Admins</a
             >
           </div>
         </div>
@@ -91,8 +92,10 @@
           const data = await res.json();
 
           if (data.user.role !== "admin") {
-            const view = document.getElementById("view-users");
-            view.style.display = "none";
+            const view_users = document.getElementById("view-users");
+            const view_admins = document.getElementById("view-admins");
+            view_users.style.display = "none";
+            view_admins.style.display = "none";
           }
 
           document.getElementById("userName").textContent = data.user.name;
