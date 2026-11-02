@@ -3,24 +3,37 @@ import bcrypt from "bcrypt";
 const db = new Database("authentication.db");
 
 const columns = db.prepare("PRAGMA table_info(users)").all();
+const columnNames = columns.map((column) => column.name);
 
-console.log(columns.map((column) => column.name));
+console.log(columnNames);
 
-db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`);
+if (!columnNames.includes("confirm_password")) {
+  db.prepare(`ALTER TABLE users ADD COLUMN confirm_password STRING`).run();
+}
 
-db.prepare(
-  `ALTER TABLE users ADD COLUMN role STRING NOT NULL DEFAULT 'user' CHECK (role in ('user', 'admin'))`,
-).run();
+if (!columnNames.includes("role")) {
+  db.prepare(
+    `ALTER TABLE users ADD COLUMN role STRING NOT NULL DEFAULT 'user' CHECK (role in ('user', 'admin'))`,
+  ).run();
+}
 
-db.prepare(
-  "INSERT INTO users (name, username, email, password, role) VALUES('Jay', /'AdminJay', 'AdminJay@gmail.com', 'MinMin@31', 'admin')",
-).run();
+const findUser = db.prepare("SELECT id FROM users WHERE username = ?");
 
-const salt = await bcrypt.genSalt();
-const hashedPassword = await bcrypt.hash("Jamesj@20", salt);
-db.prepare(
-  "INSERT INTO users (name, username, email, password, role) VALUES(?, ?, ?, ?, ?)",
-).run("James", "Admin2", "Admin2sederia@gmail.com", hashedPassword, "admin");
+if (!findUser.get("AdminJay")) {
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash("MinMin@31", salt);
+  db.prepare(
+    "INSERT INTO users (name, username, email, password, role) VALUES(?, ?, ?, ?, ?)",
+  ).run("Jay", "AdminJay", "AdminJay@gmail.com", hashedPassword, "admin");
+}
+
+if (!findUser.get("Admin2")) {
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash("Jamesj@20", salt);
+  db.prepare(
+    "INSERT INTO users (name, username, email, password, role) VALUES(?, ?, ?, ?, ?)",
+  ).run("James", "Admin2", "Admin2sederia@gmail.com", hashedPassword, "admin");
+}
 
 const users = db.prepare(`SELECT * FROM users`).all();
 console.log(users);
