@@ -1,16 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const errorBox = document.getElementById("errorMsg");
-  const togglePassword = document.getElementById("togglePassword");
   const passwordInput = document.getElementById("pwd");
-
-  if (togglePassword) {
-    togglePassword.addEventListener("click", () => {
-      const isPassword = passwordInput.type === "password";
-      passwordInput.type = isPassword ? "text" : "password";
-      togglePassword.textContent = isPassword ? "🙈" : "👁️";
-    });
-  }
 
   function showError(message) {
     errorBox.querySelector(".alert-text").textContent = message;

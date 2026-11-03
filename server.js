@@ -22,7 +22,7 @@ let limiter = rateLimit({
     res.status(429).json({
       success: false,
       message:
-        "We have received too many requests from this IP address, please try again after one hour",
+        "We have received too many requests from this IP address, please try again after 10 minutes",
     });
   },
 });
